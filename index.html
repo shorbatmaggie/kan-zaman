@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kan Zaman | Academic Hijrī↔Common Era date converter </title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/open-dyslexic/web/opendyslexic.css" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .arabic {
+      font-family: 'Noto Naskh Arabic', serif;
+    }
+    body.dyslexic-mode {
+      font-family: 'OpenDyslexic', sans-serif;
+    }
+  </style>
+
+  <!-- Calendar logic (Muqawwim) -->
+  <script src="https://cdn.jsdelivr.net/npm/muqawwim/dist/muqawwim.min.js"></script>
+</head>
+<body class="bg-neutral-50 text-gray-800 p-6">
+
+  <header class="text-center mb-8">
+    <h1 class="text-3xl font-bold tracking-wide">Kan Zaman</h1>
+    <p class="mt-2 text-lg italic">A Hijri ↔ CE Date Converter</p>
+    <button onclick="toggleDyslexiaMode()" class="mt-4 text-sm underline text-blue-700">
+      Toggle Dyslexia-Friendly Font
+    </button>
+  </header>
+
+  <main class="max-w-xl mx-auto space-y-10">
+
+    <!-- Exact Date Conversion -->
+    <section id="exact-date" class="p-4 border rounded shadow-sm bg-white space-y-4">
+      <h2 class="text-xl font-semibold">Exact Date Conversion</h2>
+
+      <div class="space-y-2">
+        <label class="block font-medium">Gregorian (CE) to Hijri (AH):</label>
+        <input id="ce-input" type="date" class="w-full p-2 border rounded" />
+        <button onclick="convertCEtoHijri()" class="mt-2 bg-blue-600 text-white px-4 py-1 rounded">Convert</button>
+        <p id="hijri-output" class="mt-2"></p>
+      </div>
+
+      <div class="border-t pt-4 space-y-2">
+        <label class="block font-medium">Hijri (AH) to Gregorian (CE):</label>
+        <input id="hijri-year" type="number" placeholder="Year (AH)" class="w-1/3 p-2 border rounded" />
+        <input id="hijri-month" type="number" placeholder="Month" class="w-1/3 p-2 border rounded" />
+        <input id="hijri-day" type="number" placeholder="Day" class="w-1/3 p-2 border rounded" />
+        <button onclick="convertHijriToCE()" class="mt-2 bg-blue-600 text-white px-4 py-1 rounded">Convert</button>
+        <p id="ce-output" class="mt-2"></p>
+      </div>
+    </section>
+
+    <!-- Full-Year Range Conversion (coming in Step 3) -->
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
