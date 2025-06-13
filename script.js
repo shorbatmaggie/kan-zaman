@@ -4,29 +4,34 @@ const hijriMonths = [
   "Rajab", "Shaʿbān", "Ramaḍān", "Shawwāl", "Dhū al-Qaʿda", "Dhū al-Ḥijja"
 ];
 
-// Arabic Gregorian month names
+// Arabic Hijrī month names
+const hijriMonthsArabic = [
+  "", "محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة",
+  "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
+];
+
+// Arabic CE months
 const ceMonthsArabic = [
   "", "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
   "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
 ];
 
-// Day of week: [EN, translit, AR]
+// Day of week: [EN, IJMES, Arabic]
 const dayOfWeekMap = [
+  ["Sunday", "al-Aḥad", "الأحد"],
   ["Monday", "al-Ithnayn", "الاثنين"],
   ["Tuesday", "al-Thulāthāʾ", "الثلاثاء"],
   ["Wednesday", "al-Arbiʿāʾ", "الأربعاء"],
   ["Thursday", "al-Khamīs", "الخميس"],
   ["Friday", "al-Jumʿa", "الجمعة"],
-  ["Saturday", "al-Sabt", "السبت"],
-  ["Sunday", "al-Aḥad", "الأحد"]
+  ["Saturday", "al-Sabt", "السبت"]
 ];
 
-// Converts Arabic-script digits (٠١٢٣...) to Western (0123...)
+// Arabic digit normalization
 function normalizeDigits(input) {
   return input.replace(/[\u0660-\u0669]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
 }
 
-// Converts Western digits (0123...) to Arabic (٠١٢٣...)
 function toArabicNumerals(str) {
   return str.replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
 }
@@ -34,10 +39,10 @@ function toArabicNumerals(str) {
 // Format CE output
 function formatCEOutput(date) {
   const day = date.getDate();
-  const month = date.getMonth() + 1; // JS months are 0-based
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
-
   const weekday = dayOfWeekMap[date.getDay()];
+
   const en = `${day} ${date.toLocaleString('en-US', { month: 'long' })} ${year} CE`;
   const ar = `${toArabicNumerals(day.toString())} ${ceMonthsArabic[month]} ${toArabicNumerals(year.toString())} م`;
 
@@ -49,23 +54,15 @@ function formatHijriOutput(h) {
   const day = h.day;
   const month = h.month;
   const year = h.year;
-
   const weekday = dayOfWeekMap[h.weekday];
+
   const trans = `${day} ${hijriMonths[month]} ${year} AH`;
-  const ar = `${toArabicNumerals(day.toString())} ${hijriMonthArabic(month)} ${toArabicNumerals(year.toString())} هـ`;
+  const ar = `${toArabicNumerals(day.toString())} ${hijriMonthsArabic[month]} ${toArabicNumerals(year.toString())} هـ`;
 
   return `${trans} / ${ar}\n${weekday[0]} / ${weekday[1]} / ${weekday[2]}`;
 }
 
-// Arabic Hijri month names
-function hijriMonthArabic(m) {
-  return [
-    "", "محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة",
-    "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
-  ][m];
-}
-
-// Handle CE → Hijrī conversion
+// CE → Hijrī
 function convertCEtoHijri() {
   const day = parseInt(normalizeDigits(document.getElementById("ce-day").value));
   const month = parseInt(normalizeDigits(document.getElementById("ce-month").value));
@@ -80,7 +77,7 @@ function convertCEtoHijri() {
   document.getElementById("hijri-output").innerText = output;
 }
 
-// Handle Hijrī → CE conversion
+// Hijrī → CE
 function convertHijriToCE() {
   const day = parseInt(normalizeDigits(document.getElementById("hijri-day").value));
   const month = parseInt(normalizeDigits(document.getElementById("hijri-month").value));
@@ -95,11 +92,7 @@ function convertHijriToCE() {
   document.getElementById("ce-output").innerText = output;
 }
 
-// Toggle OpenDyslexic font
-function toggleDyslexiaMode() {
-  document.body.classList.toggle('dyslexic-mode');
-}
-
+// Hijrī year → CE range
 function convertHijriYearToCERange() {
   const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
   if (!year) return;
@@ -114,6 +107,7 @@ function convertHijriYearToCERange() {
   document.getElementById("ce-range-output").innerText = out;
 }
 
+// CE year → Hijrī range
 function convertCEYearToHijriRange() {
   const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
   if (!year) return;
@@ -126,4 +120,9 @@ function convertCEYearToHijriRange() {
 
   const out = `Start: ${formatHijriOutput(start)}\nEnd: ${formatHijriOutput(end)}`;
   document.getElementById("hijri-range-output").innerText = out;
+}
+
+// Font toggle
+function toggleDyslexiaMode() {
+  document.body.classList.toggle('dyslexic-mode');
 }
