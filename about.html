@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – Kan Zaman</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/open-dyslexic/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+  <script>
+    function toggleDyslexiaMode() {
+      document.body.classList.toggle('dyslexia');
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #F5F5F5;
+      color: #4A2F2F;
+      padding: 2rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #B63520;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+    }
+    .dyslexia {
+      font-family: 'OpenDyslexicVariable', sans-serif;
+    }
+    nav {
+      margin-top: 2rem;
+    }
+    nav a {
+      color: #861848;
+      text-decoration: underline;
+      margin-right: 1rem;
+    }
+    .toggle {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>About Kan Zaman</h1>
+  <p>
+    <strong>Kan Zaman</strong> is a CE to AH date converter for academics working on the Islamicate world.
+    It aims to improve upon existing tools through the following:
+  </p>
+  <ul>
+    <li><strong>Accessibility:</strong> a toggle for dyslexic-friendly fonts</li>
+    <li><strong>Date Flexibility:</strong> the ability to choose between conversions for an entire year range or a specific day</li>
+    <li><strong>Language:</strong> support for Arabic inputs; English, transliterated, and Arabic outputs</li>
+    <li><strong>Updated UI:</strong> a modern and uncluttered display</li>
+  </ul>
+
+  <h2>Acknowledgements</h2>
+  <ul>
+    <li>
+      The tool adapts the converter created by <a href="https://www.muqawwim.com" target="_blank">T.S. Beers</a>
+    </li>
+    <li>
+      Transliterations follow IJMES guidelines
+    </li>
+    <li>
+      This site is dedicated to my dear friend Holly Crane and the memory of our old haunt in the Haight.
+    </li>
+  </ul>
+
+  <div class="toggle">
+    <label><input type="checkbox" onclick="toggleDyslexiaMode()"> Toggle Dyslexia-Friendly Font</label>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="how-to.html">How to Use</a>
+  </nav>
+</body>
+</html>
