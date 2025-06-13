@@ -104,7 +104,16 @@ document.addEventListener("DOMContentLoaded", function () {
       `Start: ${formatHijriOutput(start)}\nEnd: ${formatHijriOutput(end)}`;
   };
 
-  window.toggleDyslexiaMode = function () {
-    document.body.classList.toggle("dyslexic-mode");
-  };
+  
 });
+
+// Dyslexia font toggle
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.getElementById("dyslexiaToggle");
+  if (toggle) {
+    toggle.addEventListener("change", function () {
+      document.body.classList.toggle("dyslexia-mode", toggle.checked);
+    });
+  }
+});
+
