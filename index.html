@@ -59,7 +59,26 @@
       </div>
     </section>
 
-    <!-- Full-Year Range Conversion (coming in Step 3) -->
+    <!-- Full-Year Range Conversion -->
+<section id="year-range" class="p-4 border rounded shadow-sm bg-white space-y-4">
+  <h2 class="text-xl font-semibold">Full-Year Range Conversion</h2>
+
+  <!-- Hijrī → CE -->
+  <div class="space-y-2">
+    <label class="block font-medium">Hijrī year to CE range:</label>
+    <input id="hijri-range-year" type="number" placeholder="Year (AH)" class="w-1/3 p-2 border rounded" />
+    <button onclick="convertHijriYearToCERange()" class="mt-2 bg-blue-600 text-white px-4 py-1 rounded">Convert</button>
+    <p id="ce-range-output" class="mt-2 whitespace-pre-line"></p>
+  </div>
+
+  <!-- CE → Hijrī -->
+  <div class="border-t pt-4 space-y-2">
+    <label class="block font-medium">CE year to Hijrī range:</label>
+    <input id="ce-range-year" type="number" placeholder="Year (CE)" class="w-1/3 p-2 border rounded" />
+    <button onclick="convertCEYearToHijriRange()" class="mt-2 bg-blue-600 text-white px-4 py-1 rounded">Convert</button>
+    <p id="hijri-range-output" class="mt-2 whitespace-pre-line"></p>
+  </div>
+</section>
 
   </main>
 
