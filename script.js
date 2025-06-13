@@ -4,7 +4,7 @@ function normalizeDigits(input) {
 }
 
 // Format Hijrī date in IJMES transliteration + Arabic
-function formatHijriOutput(hijriDate) {
+function formatHijriOutput([year, month, day]) {
   const months = [
     ["Muḥarram", "محرم"],
     ["Ṣafar", "صفر"],
@@ -19,16 +19,12 @@ function formatHijriOutput(hijriDate) {
     ["Dhū al-Qaʿda", "ذو القعدة"],
     ["Dhū al-Ḥijja", "ذو الحجة"]
   ];
-  const day = hijriDate.getDate();
-  const monthIndex = hijriDate.getMonth();
-  const year = hijriDate.getFullYear();
-
-  const [translitMonth, arabicMonth] = months[monthIndex];
+  const [translitMonth, arabicMonth] = months[month - 1];
   return `${day} ${translitMonth} ${year} AH / ${day} ${arabicMonth} ${year} هـ`;
 }
 
 // Format CE date in English + Arabic
-function formatCEOutput(date) {
+function formatCEOutput([year, month, day]) {
   const months = [
     ["January", "يناير"],
     ["February", "فبراير"],
@@ -43,28 +39,23 @@ function formatCEOutput(date) {
     ["November", "نوفمبر"],
     ["December", "ديسمبر"]
   ];
-  const day = date.getDate();
-  const monthIndex = date.getMonth();
-  const year = date.getFullYear();
-
-  const [engMonth, arMonth] = months[monthIndex];
+  const [engMonth, arMonth] = months[month - 1];
   return `${day} ${engMonth} ${year} CE / ${day} ${arMonth} ${year} م`;
 }
 
 // Day of week output
 const dayOfWeekMap = [
+  ["Sunday", "al-Aḥad", "الأحد"],
   ["Monday", "al-Ithnayn", "الاثنين"],
   ["Tuesday", "al-Thulāthāʾ", "الثلاثاء"],
   ["Wednesday", "al-Arbiʿāʾ", "الأربعاء"],
   ["Thursday", "al-Khamīs", "الخميس"],
   ["Friday", "al-Jumʿa", "الجمعة"],
-  ["Saturday", "al-Sabt", "السبت"],
-  ["Sunday", "al-Aḥad", "الأحد"]
+  ["Saturday", "al-Sabt", "السبت"]
 ];
 
-function formatDayOfWeek(date) {
-  const dayIndex = date.getDay();
-  const [eng, translit, arabic] = dayOfWeekMap[dayIndex];
+function formatDayOfWeek(index) {
+  const [eng, translit, arabic] = dayOfWeekMap[index];
   return `${eng} / ${translit} / ${arabic}`;
 }
 
@@ -82,10 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
     if (!year) return;
 
-    const startDate = new Date(year, 0, 1);
-    const endDate = new Date(year, 11, 31);
-    const start = Muqawwim.Islamic.fromGregorian(startDate);
-    const end = Muqawwim.Islamic.fromGregorian(endDate);
+    const start = convertGregorianToHijri(year, 1, 1);
+    const end = convertGregorianToHijri(year, 12, 31);
 
     document.getElementById("hijri-range-output").innerText =
       `Start: ${formatHijriOutput(start)}\nEnd: ${formatHijriOutput(end)}`;
@@ -96,34 +85,36 @@ document.addEventListener("DOMContentLoaded", function () {
     const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
     if (!year) return;
 
-    const start = new Muqawwim.Islamic(year, 0, 1).toGregorian();
-    const end = new Muqawwim.Islamic(year, 11, 30).toGregorian();
+    const start = convertHijriToGregorian(year, 1, 1);
+    const end = convertHijriToGregorian(year, 12, 30);
 
     document.getElementById("ce-range-output").innerText =
       `Start: ${formatCEOutput(start)}\nEnd: ${formatCEOutput(end)}`;
   };
 
   // Hijrī → CE exact date
-  window.convertHijriDate = function () {
+  window.convertHijriToCE = function () {
     const day = parseInt(normalizeDigits(document.getElementById("hijri-day").value));
-    const month = parseInt(document.getElementById("hijri-month").value); // 0–11
+    const month = parseInt(document.getElementById("hijri-month").value);
     const year = parseInt(normalizeDigits(document.getElementById("hijri-year").value));
     if (!day || !month || !year) return;
 
-    const gregDate = new Muqawwim.Islamic(year, month, day).toGregorian();
-    document.getElementById("gregorian-output").innerText =
-      `${formatCEOutput(gregDate)}\n${formatDayOfWeek(gregDate)}`;
+    const greg = convertHijriToGregorian(year, month, day);
+    const weekday = getWeekdayFromHijri(year, month, day);
+    document.getElementById("ce-output").innerText =
+      `${formatCEOutput(greg)}\n${formatDayOfWeek(weekday)}`;
   };
 
   // CE → Hijrī exact date
-  window.convertGregorianDate = function () {
-    const day = parseInt(normalizeDigits(document.getElementById("gregorian-day").value));
-    const month = parseInt(document.getElementById("gregorian-month").value); // 0–11
-    const year = parseInt(normalizeDigits(document.getElementById("gregorian-year").value));
+  window.convertCEtoHijri = function () {
+    const day = parseInt(normalizeDigits(document.getElementById("ce-day").value));
+    const month = parseInt(document.getElementById("ce-month").value);
+    const year = parseInt(normalizeDigits(document.getElementById("ce-year").value));
     if (!day || !month || !year) return;
 
-    const hijriDate = Muqawwim.Islamic.fromGregorian(new Date(year, month, day));
+    const hijri = convertGregorianToHijri(year, month, day);
+    const weekday = getWeekdayFromGregorian(year, month, day);
     document.getElementById("hijri-output").innerText =
-      `${formatHijriOutput(hijriDate)}\n${formatDayOfWeek(new Date(year, month, day))}`;
+      `${formatHijriOutput(hijri)}\n${formatDayOfWeek(weekday)}`;
   };
 });
