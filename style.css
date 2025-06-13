@@ -1,1 +1,25 @@
+/* OpenDyslexic Font Face */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('fonts/OpenDyslexic-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('fonts/OpenDyslexic-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Dyslexia mode override */
+body.dyslexia-mode {
+  font-family: 'OpenDyslexic', sans-serif !important;
+}
+body.dyslexia-mode h1,
+body.dyslexia-mode h2,
+body.dyslexia-mode h3,
+body.dyslexia-mode strong {
+  font-weight: bold;
+}
 
