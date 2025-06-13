@@ -100,3 +100,30 @@ function toggleDyslexiaMode() {
   document.body.classList.toggle('dyslexic-mode');
 }
 
+function convertHijriYearToCERange() {
+  const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
+  if (!year) return;
+
+  const start = Muqawwim.Gregorian.fromIslamic(year, 1, 1);
+  const end = Muqawwim.Gregorian.fromIslamic(year, 12, 30);
+
+  const startDate = new Date(start.year, start.month - 1, start.day);
+  const endDate = new Date(end.year, end.month - 1, end.day);
+
+  const out = `Start: ${formatCEOutput(startDate)}\nEnd: ${formatCEOutput(endDate)}`;
+  document.getElementById("ce-range-output").innerText = out;
+}
+
+function convertCEYearToHijriRange() {
+  const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
+  if (!year) return;
+
+  const startDate = new Date(year, 0, 1);
+  const endDate = new Date(year, 11, 31);
+
+  const start = Muqawwim.Islamic.fromGregorian(startDate);
+  const end = Muqawwim.Islamic.fromGregorian(endDate);
+
+  const out = `Start: ${formatHijriOutput(start)}\nEnd: ${formatHijriOutput(end)}`;
+  document.getElementById("hijri-range-output").innerText = out;
+}
