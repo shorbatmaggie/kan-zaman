@@ -4,7 +4,7 @@ function normalizeDigits(input) {
 }
 
 // Format Hijrī date in IJMES transliteration + Arabic
-function formatHijriOutput([year, month, day]) {
+function formatHijriParts([year, month, day]) {
   const months = [
     ["Muḥarram", "محرم"],
     ["Ṣafar", "صفر"],
@@ -20,11 +20,11 @@ function formatHijriOutput([year, month, day]) {
     ["Dhū al-Ḥijja", "ذو الحجة"]
   ];
   const [translitMonth, arabicMonth] = months[month - 1];
-  return `${day} ${translitMonth} ${year} AH / ${day} ${arabicMonth} ${year} هـ`;
+  return { day, year, translitMonth, arabicMonth };
 }
 
 // Format CE date in English + Arabic
-function formatCEOutput([year, month, day]) {
+function formatCEParts([year, month, day]) {
   const months = [
     ["January", "يناير"],
     ["February", "فبراير"],
@@ -39,8 +39,8 @@ function formatCEOutput([year, month, day]) {
     ["November", "نوفمبر"],
     ["December", "ديسمبر"]
   ];
-  const [engMonth, arMonth] = months[month - 1];
-  return `${day} ${engMonth} ${year} CE / ${day} ${arMonth} ${year} م`;
+  const [engMonth, arabicMonth] = months[month - 1];
+  return { day, year, engMonth, arabicMonth };
 }
 
 // Day of week output
@@ -68,36 +68,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // New helper to format 622–623 and ٦٢٢–٦٢٣
+  // Helper for year range display
   function formatYearRange(start, end) {
-  const latinRange = `${start}–${end}`;
-  const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
-  const arabicRange = latinRange.replace(/\d/g, d => arabicDigits[d]);
-  return `${latinRange}\n${arabicRange}`;
-}
+    const latinRange = `${start}–${end}`;
+    const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
+    const arabicRange = latinRange.replace(/\d/g, d => arabicDigits[d]);
+    return `${latinRange}\n${arabicRange}`;
+  }
 
   // Hijrī → CE year range
   window.convertHijriYearToCERange = function () {
-  const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
-  if (!year) return;
+    const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
+    if (!year) return;
 
-  const start = convertHijriToGregorian(year, 1, 1)[0];
-  const end = convertHijriToGregorian(year, 12, 30)[0];
+    const start = convertHijriToGregorian(year, 1, 1)[0];
+    const end = convertHijriToGregorian(year, 12, 30)[0];
 
-  document.getElementById("ce-range-output").innerText = formatYearRange(start, end);
-};
+    document.getElementById("ce-range-output").innerText = formatYearRange(start, end);
+  };
 
-// CE → Hijrī year range
-window.convertCEYearToHijriRange = function () {
-  const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
-  if (!year) return;
+  // CE → Hijrī year range
+  window.convertCEYearToHijriRange = function () {
+    const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
+    if (!year) return;
 
-  const start = convertGregorianToHijri(year, 1, 1)[0];
-  const end = convertGregorianToHijri(year, 12, 31)[0];
+    const start = convertGregorianToHijri(year, 1, 1)[0];
+    const end = convertGregorianToHijri(year, 12, 31)[0];
 
-  document.getElementById("hijri-range-output").innerText = formatYearRange(start, end);
-};
-
+    document.getElementById("hijri-range-output").innerText = formatYearRange(start, end);
+  };
 
   // Hijrī → CE exact date
   window.convertHijriToCE = function () {
@@ -108,20 +107,28 @@ window.convertCEYearToHijriRange = function () {
 
     const greg = convertHijriToGregorian(year, month, day);
     const weekday = getWeekdayFromHijri(year, month, day);
+    const { day: d, year: y, engMonth, arabicMonth } = formatCEParts(greg);
+
     document.getElementById("ce-output").innerText =
-      `${formatCEOutput(greg)}\n${formatDayOfWeek(weekday)}`;
+      `${d} ${engMonth} ${y} CE\n` +
+      `${d} ${arabicMonth} ${y} م\n` +
+      `${formatDayOfWeek(weekday)}`;
   };
 
-    window.convertCEtoHijri = function () {
+  // CE → Hijrī exact date
+  window.convertCEtoHijri = function () {
     const day = parseInt(normalizeDigits(document.getElementById("ce-day").value));
-    const month = parseInt(document.getElementById("ce-month").value); // Use as-is: 1–12
+    const month = parseInt(document.getElementById("ce-month").value);
     const year = parseInt(normalizeDigits(document.getElementById("ce-year").value));
     if (!day || !month || !year) return;
 
     const hijriDate = convertGregorianToHijri(year, month, day);
     const weekday = getWeekdayFromGregorian(year, month, day);
-    document.getElementById("hijri-output").innerText =
-      `${formatHijriOutput(hijriDate)}\n${formatDayOfWeek(weekday)}`;
-  };
+    const { day: d, year: y, translitMonth, arabicMonth } = formatHijriParts(hijriDate);
 
+    document.getElementById("hijri-output").innerText =
+      `${d} ${translitMonth} ${y} AH\n` +
+      `${d} ${arabicMonth} ${y} هـ\n` +
+      `${formatDayOfWeek(weekday)}`;
+  };
 });
