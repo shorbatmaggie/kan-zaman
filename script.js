@@ -108,14 +108,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // CE → Hijrī exact date
   window.convertCEtoHijri = function () {
     const day = parseInt(normalizeDigits(document.getElementById("ce-day").value));
-    const month = parseInt(document.getElementById("ce-month").value) - 1;  // 0-index
-    const year = parseInt(normalizeDigits(document.getElementById("ce-year").value));
+    const month = parseInt(document.getElementById("ce-month").value);  // 1–12 as is
     if (!day || !month || !year) return;
 
+    const hijri = convertGregorianToHijri(year, month, day);
+    const weekday = getWeekdayFromGregorian(year, month, day);
 
-    console.log("Converting:", year, month, day);
-    const hijri = convertGregorianToHijri(year, month + 1, day); // pass 1–12
-    const weekday = getWeekdayFromGregorian(year, month + 1, day);
     document.getElementById("hijri-output").innerText =
       `${formatHijriOutput(hijri)}\n${formatDayOfWeek(weekday)}`;
   };
