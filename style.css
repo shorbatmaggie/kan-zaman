@@ -22,3 +22,12 @@ body.dyslexia-mode h3,
 body.dyslexia-mode strong {
   font-weight: bold;
 }
+
+a {
+  color: #F0A7AD;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #c97f86; /* Optional hover color */
+}
