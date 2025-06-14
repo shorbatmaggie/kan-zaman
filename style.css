@@ -33,3 +33,7 @@ main a:hover, section a:hover, p a:hover, div a:hover {
   color: #c97f86 !important;
 }
 
+ul li {
+  padding-left: 1em;
+  text-indent: -1em;
+}
