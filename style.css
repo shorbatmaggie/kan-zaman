@@ -23,13 +23,13 @@ body.dyslexia-mode strong {
   font-weight: bold;
 }
 
-/* Force pink link color, overriding Tailwind */
-a:not(.no-style) {
+/* Force pink link color inside content */
+main a, section a, p a, div a {
   color: #F0A7AD !important;
   text-decoration: underline !important;
 }
 
-a:not(.no-style):hover {
+main a:hover, section a:hover, p a:hover, div a:hover {
   color: #c97f86 !important;
 }
 
