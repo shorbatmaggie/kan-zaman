@@ -105,16 +105,16 @@ document.addEventListener("DOMContentLoaded", function () {
       `${formatCEOutput(greg)}\n${formatDayOfWeek(weekday)}`;
   };
 
-  // CE → Hijrī exact date
-  window.convertCEtoHijri = function () {
+    window.convertCEtoHijri = function () {
     const day = parseInt(normalizeDigits(document.getElementById("ce-day").value));
-    const month = parseInt(document.getElementById("ce-month").value);  // 1–12 as is
+    const month = parseInt(document.getElementById("ce-month").value); // Use as-is: 1–12
+    const year = parseInt(normalizeDigits(document.getElementById("ce-year").value));
     if (!day || !month || !year) return;
 
-    const hijri = convertGregorianToHijri(year, month, day);
+    const hijriDate = convertGregorianToHijri(year, month, day);
     const weekday = getWeekdayFromGregorian(year, month, day);
-
     document.getElementById("hijri-output").innerText =
-      `${formatHijriOutput(hijri)}\n${formatDayOfWeek(weekday)}`;
+      `${formatHijriOutput(hijriDate)}\n${formatDayOfWeek(weekday)}`;
   };
+
 });
