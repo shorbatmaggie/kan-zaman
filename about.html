@@ -3,98 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About – Kan Zaman</title>
-  <!-- Local fonts -->
-  <link href="style.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+  <title>Kan Zaman | About</title>
 
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .arabic {
+      font-family: 'Noto Naskh Arabic', serif;
+    }
+    body.dyslexic-mode {
+      font-family: 'OpenDyslexic', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-[#F5F5F5] text-gray-900 p-6 font-sans">
+
+  <!-- Header -->
+  <header class="bg-[#588B8B] text-white p-6 rounded shadow">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold tracking-wide">About</h1>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="max-w-4xl mx-auto mt-4 mb-8 flex gap-6 text-lg font-semibold text-[#F0A7AD]">
+    <a href="index.html" class="underline">Home</a>
+    <a href="about.html" class="underline">About</a>
+    <a href="how-to.html" class="underline">How to Use</a>
+    <label>
+      <input type="checkbox" id="dyslexiaToggle" />
+      Dyslexia-Friendly Font
+    </label>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto space-y-10">
+
+    <!-- About the Tool -->
+    <section class="bg-white text-[#588B8B] p-6 rounded shadow space-y-4">
+      <h2 class="text-xl font-semibold">About the Tool</h2>
+      <p>
+      <strong>Kan Zaman</strong> is a CE to AH date converter for academics working on the Islamicate world.
+     It aims to improve upon existing tools through the following:
+      </p>
+      <ul>
+      <li><strong>Accessibility:</strong> a toggle for dyslexic-friendly fonts</li>
+      <li><strong>Date Flexibility:</strong> the ability to choose between conversions for an entire year range or a specific day</li>
+      <li><strong>Language:</strong> support for Arabic inputs; English, transliterated, and Arabic outputs</li>
+      <li><strong>Updated UI:</strong> a modern and uncluttered display</li>
+      </p>
+    </section>
+
+    <!-- Acknowledgments -->
+    <section class="bg-white text-[#588B8B] p-6 rounded shadow space-y-4">
+      <h2 class="text-xl font-semibold">Acknowledgments</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          This tool adapts the converter created by 
+          <a href="https://www.fourmilab.ch/documents/calendar/" class="underline text-blue-600 hover:text-blue-800" target="_blank">John Walker</a>.
+        </li>
+        <li>
+          Transliterations follow 
+          <a href="https://www.cambridge.org/core/journals/international-journal-of-middle-east-studies/information/author-resources/ijmes-translation-and-transliteration-guide" class="underline text-blue-600 hover:text-blue-800" target="_blank">IJMES guidelines</a>.
+        </li>
+        <li>
+          Learn more about dyslexia-friendly fonts 
+          <a href="https://opendyslexic.org/about" class="underline text-blue-600 hover:text-blue-800" target="_blank">here</a>.
+        </li>
+      </ul>
+    </section>
+
+    <!-- About Me -->
+    <section class="bg-white text-[#588B8B] p-6 rounded shadow space-y-4">
+      <h2 class="text-xl font-semibold">About Me</h2>
+      <p>
+        Created by Maggie Sager, a PhD candidate and historian of gender and Islamic law.
+      </p>
+      <p>
+        This site is dedicated to my dear friend Holly Crane and the memory of Kan Zaman, our old haunt in the Haight.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Dyslexia toggle behavior -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const toggle = document.getElementById("dyslexiaToggle");
       if (toggle) {
         toggle.addEventListener("change", function () {
-          document.body.classList.toggle("dyslexia-mode", toggle.checked);
+          document.body.classList.toggle("dyslexic-mode", toggle.checked);
         });
       }
     });
   </script>
-
-
-  <style>
-    body {
-      font-family: 'Noto Sans', sans-serif;
-      background-color: #F5F5F5;
-      color: #4A2F2F;
-      padding: 2rem;
-      line-height: 1.6;
-      max-width: 700px;
-      margin: auto;
-    }
-    h1 {
-      font-size: 2rem;
-      color: #B63520;
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin-top: 2rem;
-    }
-    ul {
-      list-style-type: disc;
-      margin-left: 1.5rem;
-    }
-    .dyslexia {
-      font-family: 'OpenDyslexicVariable', sans-serif;
-    }
-    nav {
-      margin-top: 2rem;
-    }
-    nav a {
-      color: #861848;
-      text-decoration: underline;
-      margin-right: 1rem;
-    }
-    .toggle {
-      margin-top: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <h1>About Kan Zaman</h1>
-  <p>
-    <strong>Kan Zaman</strong> is a CE to AH date converter for academics working on the Islamicate world.
-    It aims to improve upon existing tools through the following:
-  </p>
-  <ul>
-    <li><strong>Accessibility:</strong> a toggle for dyslexic-friendly fonts</li>
-    <li><strong>Date Flexibility:</strong> the ability to choose between conversions for an entire year range or a specific day</li>
-    <li><strong>Language:</strong> support for Arabic inputs; English, transliterated, and Arabic outputs</li>
-    <li><strong>Updated UI:</strong> a modern and uncluttered display</li>
-  </ul>
-
-  <h2>Acknowledgements</h2>
-  <ul>
-    <li>
-      The tool adapts the converter created by <a href="https://www.muqawwim.com" target="_blank">T.S. Beers</a>
-    </li>
-    <li>
-      Transliterations follow IJMES guidelines
-    </li>
-    <li>
-      This site is dedicated to my dear friend Holly Crane and the memory of our old haunt in the Haight.
-    </li>
-  </ul>
-
-  <div class="toggle">
-  <label>
-    <input type="checkbox" id="dyslexiaToggle" />
-    Dyslexia-Friendly Font
-  </label>
-  </div>
-
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="how-to.html">How to Use</a>
-  </nav>
 </body>
 </html>
