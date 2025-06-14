@@ -9,13 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
-
-
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: 'Noto Sans', sans-serif;
+      background-color: #F5F5F5;
     }
     .arabic {
       font-family: 'Noto Naskh Arabic', serif;
@@ -23,18 +22,41 @@
     body.dyslexic-mode {
       font-family: 'OpenDyslexic', sans-serif;
     }
+
+    header {
+      background-color: #588B8B;
+      color: white;
+    }
+
+    button {
+      background-color: #588B8B !important;
+      color: white !important;
+    }
+
+    section {
+      background-color: #FFFFFF !important;
+      color: #588B8B;
+    }
+
+    input, select {
+      background-color: #F5F5F5 !important;
+    }
+
+    nav a,
+    nav label {
+      color: #F0A7AD !important;
+    }
   </style>
 
   <!-- Walker calendar library -->
   <script src="js/calendar-hijri.js"></script>
   <script src="script.js"></script>
-
-
 </head>
-<body class="bg-[#F5F5F5] text-gray-900 p-6 font-sans">
+
+<body class="p-6 font-sans">
 
   <!-- Header -->
-  <header class="bg-[#B63520] text-white p-6 rounded shadow">
+  <header class="p-6 rounded shadow">
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl font-bold tracking-wide">Kan Zaman</h1>
       <p class="mt-1 text-lg not-italic">A Hijrī ↔ Common Era Date Converter</p>
@@ -42,7 +64,7 @@
   </header>
 
   <!-- Navigation -->
-  <nav class="max-w-4xl mx-auto mt-4 mb-8 flex gap-4 text-sm text-[#861848]">
+  <nav class="max-w-4xl mx-auto mt-4 mb-8 flex gap-4 text-sm">
     <a href="index.html" class="underline">Home</a>
     <a href="about.html" class="underline">About</a>
     <a href="how-to.html" class="underline">How to Use</a>
@@ -50,33 +72,32 @@
       <input type="checkbox" id="dyslexiaToggle" />
       Dyslexia-Friendly Font
     </label>
-  
   </nav>
 
   <!-- Main -->
   <main class="max-w-4xl mx-auto space-y-10">
 
     <!-- YEAR RANGE CONVERSION -->
-    <section class="bg-[#E69070] p-4 rounded shadow space-y-4">
+    <section class="p-4 rounded shadow space-y-4">
       <h2 class="text-xl font-semibold">Year Range Conversion</h2>
 
       <div class="space-y-2">
         <label class="font-medium">Hijrī (AH) to Common Era (CE):</label>
         <input id="hijri-range-year" type="number" placeholder="Year (AH)" class="w-1/2 p-2 border rounded" />
-        <button onclick="convertHijriYearToCERange()" class="bg-[#C07293] text-white px-4 py-1 rounded">Convert</button>
+        <button onclick="convertHijriYearToCERange()" class="px-4 py-1 rounded">Convert</button>
         <p id="ce-range-output" class="mt-2 whitespace-pre-line"></p>
       </div>
 
-      <div class="border-t border-white pt-4 space-y-2">
+      <div class="border-t border-gray-300 pt-4 space-y-2">
         <label class="font-medium">Common Era (CE) to Hijrī (AH):</label>
         <input id="ce-range-year" type="number" placeholder="Year (CE)" class="w-1/2 p-2 border rounded" />
-        <button onclick="convertCEYearToHijriRange()" class="bg-[#C07293] text-white px-4 py-1 rounded">Convert</button>
+        <button onclick="convertCEYearToHijriRange()" class="px-4 py-1 rounded">Convert</button>
         <p id="hijri-range-output" class="mt-2 whitespace-pre-line"></p>
       </div>
     </section>
 
     <!-- EXACT DATE CONVERSION -->
-    <section class="bg-[#E69070] p-4 rounded shadow space-y-4">
+    <section class="p-4 rounded shadow space-y-4">
       <h2 class="text-xl font-semibold">Date Conversion</h2>
 
       <!-- CE → Hijrī -->
@@ -92,12 +113,12 @@
           </select>
           <input id="ce-year" type="text" placeholder="Year" class="p-2 border rounded w-1/4" />
         </div>
-        <button onclick="convertCEtoHijri()" class="bg-[#C07293] text-white px-4 py-1 rounded mt-2">Convert</button>
+        <button onclick="convertCEtoHijri()" class="px-4 py-1 rounded mt-2">Convert</button>
         <p id="hijri-output" class="mt-2 whitespace-pre-line"></p>
       </div>
 
       <!-- Hijrī → CE -->
-      <div class="border-t border-white pt-4 space-y-2">
+      <div class="border-t border-gray-300 pt-4 space-y-2">
         <label class="font-medium">Hijrī (AH) to Common Era (CE):</label>
         <div class="flex gap-2">
           <input id="hijri-day" type="text" placeholder="Day" class="p-2 border rounded w-1/4" />
@@ -109,12 +130,11 @@
           </select>
           <input id="hijri-year" type="text" placeholder="Year" class="p-2 border rounded w-1/4" />
         </div>
-        <button onclick="convertHijriToCE()" class="bg-[#C07293] text-white px-4 py-1 rounded mt-2">Convert</button>
+        <button onclick="convertHijriToCE()" class="px-4 py-1 rounded mt-2">Convert</button>
         <p id="ce-output" class="mt-2 whitespace-pre-line"></p>
       </div>
     </section>
 
   </main>
-
 </body>
 </html>
