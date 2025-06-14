@@ -68,29 +68,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // CE year → Hijrī year range
-  window.convertCEYearToHijriRange = function () {
-    const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
-    if (!year) return;
+  // New helper to format 622–623 and ٦٢٢–٦٢٣
+  function formatYearRange(start, end) {
+  const latinRange = `${start}–${end}`;
+  const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
+  const arabicRange = latinRange.replace(/\d/g, d => arabicDigits[d]);
+  return `${latinRange}\n${arabicRange}`;
+}
 
-    const start = convertGregorianToHijri(year, 1, 1);
-    const end = convertGregorianToHijri(year, 12, 31);
-
-    document.getElementById("hijri-range-output").innerText =
-      `Start: ${formatHijriOutput(start)}\nEnd: ${formatHijriOutput(end)}`;
-  };
-
-  // Hijrī year → CE year range
+  // Hijrī → CE year range
   window.convertHijriYearToCERange = function () {
-    const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
-    if (!year) return;
+  const year = parseInt(normalizeDigits(document.getElementById("hijri-range-year").value));
+  if (!year) return;
 
-    const start = convertHijriToGregorian(year, 1, 1);
-    const end = convertHijriToGregorian(year, 12, 30);
+  const start = convertHijriToGregorian(year, 1, 1)[0];
+  const end = convertHijriToGregorian(year, 12, 30)[0];
 
-    document.getElementById("ce-range-output").innerText =
-      `Start: ${formatCEOutput(start)}\nEnd: ${formatCEOutput(end)}`;
-  };
+  document.getElementById("ce-range-output").innerText = formatYearRange(start, end);
+};
+
+// CE → Hijrī year range
+window.convertCEYearToHijriRange = function () {
+  const year = parseInt(normalizeDigits(document.getElementById("ce-range-year").value));
+  if (!year) return;
+
+  const start = convertGregorianToHijri(year, 1, 1)[0];
+  const end = convertGregorianToHijri(year, 12, 31)[0];
+
+  document.getElementById("hijri-range-output").innerText = formatYearRange(start, end);
+};
+
 
   // Hijrī → CE exact date
   window.convertHijriToCE = function () {
