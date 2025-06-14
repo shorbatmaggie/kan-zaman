@@ -111,6 +111,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const month = parseInt(document.getElementById("ce-month").value) - 1;  // 0-index
     const year = parseInt(normalizeDigits(document.getElementById("ce-year").value));
     if (!day || !month || !year) return;
+    console.log("Converting:", year, month, day);
+    const hijri = convertGregorianToHijri(year, month, day);
+
 
     const hijri = convertGregorianToHijri(year, month + 1, day); // pass 1–12
     const weekday = getWeekdayFromGregorian(year, month + 1, day);
