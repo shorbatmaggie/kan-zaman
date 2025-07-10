@@ -1,1 +1,7 @@
+# Node dependencies
+node_modules/
+
+# Noise
 .DS_Store
+*.log
+.vscode/
