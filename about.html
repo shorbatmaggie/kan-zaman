@@ -21,15 +21,21 @@
     body.dyslexic-mode {
       font-family: 'OpenDyslexic', sans-serif;
     }
+
+    header {
+      background-color: #588B8B;
+      color: white;
+    }
   </style>
 </head>
 
 <body class="bg-[#F5F5F5] text-gray-900 p-6 font-sans">
 
   <!-- Header -->
-  <header class="bg-[#588B8B] text-white p-6 rounded shadow">
+  <header class="p-6 rounded shadow">
     <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold tracking-wide">About</h1>
+      <h1 class="text-4xl font-bold tracking-wide">Kān Zamān</h1>
+      <p class="mt-1 text-lg not-italic">About</p>
     </div>
   </header>
 
@@ -48,14 +54,20 @@
     <!-- About the Tool -->
     <section class="bg-white text-[#588B8B] p-6 rounded shadow space-y-4">
       <h2 class="text-xl font-semibold">About the Tool</h2>
-      <p><strong>Kān Zamān</strong> is a date converter designed for academics working on the Islamicate world. It uses the <a href="https://webspace.science.uu.nl/~gent0113/islam/islam_tabcal_variants.htm" class="underline text-blue-600 hover:text-blue-800"
-        target="_blank"><i>ḥisābi</i></a> (tabular) calendar. Kān Zamān aims to improve upon existing tools through the following:</p>
+      <p><strong>Kān Zamān</strong> is a date converter designed for academics working on the Islamicate world. Kān Zamān aims to improve upon existing tools through the following:</p>
       <ul class="list-disc list-inside space-y-1">
         <li><strong>Accessibility:</strong> a toggle for dyslexic-friendly reading and an uncluttered UI</li>
         <li><strong>Date Flexibility:</strong> the ability to choose between conversions for an entire year range or a specific day</li>
         <li><strong>Language:</strong> support for Arabic-Indic and Western Arabic numerals inputs (e.g. ١٢٣٤ and 1234), and outputs in English, 
           <a href="https://www.cambridge.org/core/journals/international-journal-of-middle-east-studies/information/author-resources/ijmes-translation-and-transliteration-guide" target="_blank" class="underline text-[#F0A7AD] font-medium">IJMES</a> transliteration, and Arabic script
         </li>
+        <br>
+      <p><strong>Note</strong>: The tool uses the <a href="https://webspace.science.uu.nl/~gent0113/islam/islam_tabcal_variants.htm"
+        class="underline text-blue-600 hover:text-blue-800" target="_blank"><i>ḥisābi</i></a> (tabular) calendar, which derives conversions from a mathematical formula regardless of lunar sightings.  Consequently, 
+        <ul class="list-disc list-inside space-y-1">
+          <li> It is possible to enter non-existent dates (e.g. 32 December)</li>
+          <li> The <i>ḥisābi</i> calendar is not useful for contemporary dates or religious observances</li>
+          
       </ul>
 
 
@@ -66,7 +78,7 @@
       <h2 class="text-xl font-semibold">Acknowledgments</h2>
       <ul class="list-disc pl-6 space-y-2">
         <li>
-          This tool adapts the converter created by 
+          Kān Zamān adapts the converter created by 
           <a href="https://www.fourmilab.ch/documents/calendar/" class="underline text-blue-600 hover:text-blue-800" target="_blank">John Walker</a>.
         </li>
         <li>

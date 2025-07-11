@@ -1,3 +1,17 @@
+// Clear all canlendar inputs
+function clearCalendar(event) {
+  event.preventDefault();
+
+  // Reset all forms to clear user inputs
+  document.querySelectorAll('form').forEach(form => form.reset());
+
+  // Clear all output paragraphs
+  document.getElementById('ce-range-output').textContent = '';
+  document.getElementById('hijri-range-output').textContent = '';
+  document.getElementById('hijri-output').textContent = '';
+  document.getElementById('ce-output').textContent = '';
+}
+
 // Normalize digits: Arabic → Latin
 function normalizeDigits(input) {
   return input.replace(/[\u0660-\u0669]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));

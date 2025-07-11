@@ -50,7 +50,7 @@
 
   <!-- Walker calendar library -->
   <script src="js/calendar-hijri.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </head>
 
 <body class="p-6 font-sans">
@@ -65,7 +65,6 @@
 
   <!-- Navigation -->
   <nav class="max-w-4xl mx-auto mt-4 mb-8 flex gap-4 text-lg font-semibold">
-    <a href="index.html" class="underline">Home</a>
     <a href="about.html" class="underline">About</a>
     <label>
       <input type="checkbox" id="dyslexiaToggle" />
@@ -138,7 +137,27 @@
   </div>
 </section>
 
+<!-- Clear Calendar Button -->
+<div class="max-w-4xl mx-auto mb-8 flex justify-end">
+  <button onclick="clearCalendar(event)" class="px-4 py-2 rounded shadow">Clear All Fields</button>
+</div>
+
 
   </main>
+
+  <script>
+    function clearCalendar(event) {
+      event.preventDefault();
+
+      // Reset all forms to clear user inputs
+      document.querySelectorAll('form').forEach(form => form.reset());
+
+      // Clear all output paragraphs
+      document.getElementById('ce-range-output').textContent = '';
+      document.getElementById('hijri-range-output').textContent = '';
+      document.getElementById('hijri-output').textContent = '';
+      document.getElementById('ce-output').textContent = '';
+    }
+  </script>
 </body>
 </html>
